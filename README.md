@@ -29,7 +29,7 @@ comfy_route :blog_admin, :path => 'admin'
 comfy_route :blog, :path => 'blog'
 ```
 
-You should also find view templates in `/app/views/blog` folder. Feel free to adjust them as you see fit.
+You should also find view templates in `/app/views/comfy/blog` folder. Feel free to adjust them as you see fit.
 
 ---
 

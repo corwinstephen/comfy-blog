@@ -20,11 +20,16 @@ class Comfy::Blog::PostsController < Comfy::Blog::BaseController
   end
 
   def index
-    scope = if params[:year]
-      scope = @blog.posts.published.for_year(params[:year])
-      params[:month] ? scope.for_month(params[:month]) : scope
-    else
-      @blog.posts.published
+    scope = @blog.posts.published
+    if params[:year]
+      scope = scope.for_year(params[:year])
+      if params[:month]
+        scope = scope.for_month(params[:month])
+      end
+    end
+
+    if params[:tag].present?
+      scope = scope.joins(:tags).where('blog_post_tags.id = ?', Comfy::Blog::Tag.find_by(name: params[:tag]).id)
     end
 
     limit = ComfyBlog.config.posts_per_page

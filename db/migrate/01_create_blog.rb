@@ -30,6 +30,15 @@ class CreateBlog < ActiveRecord::Migration
     add_index :comfy_blog_posts, [:is_published, :created_at]
     add_index :comfy_blog_posts, :created_at
 
+    create_table :blog_post_tags do |t|
+      t.string :name, null: false
+    end
+
+    create_table :blog_post_taggings do |t|
+      t.integer :blog_post_id, null: false
+      t.integer :tag_id, null: false
+    end
+
     create_table :comfy_blog_comments do |t|
       t.integer :post_id,       :null => false
       t.string  :author,        :null => false

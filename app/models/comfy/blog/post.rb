@@ -7,6 +7,13 @@ class Comfy::Blog::Post < ActiveRecord::Base
   
   has_many :comments,
     :dependent => :destroy
+
+  has_many :taggings,
+    :dependent => :destroy,
+    :foreign_key => 'blog_post_id'
+
+  has_many :tags,
+    :through => :taggings
   
   # -- Validations ----------------------------------------------------------
   validates :blog_id, :title, :slug, :year, :month, :content,
